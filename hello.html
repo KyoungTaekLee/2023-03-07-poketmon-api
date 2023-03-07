@@ -14,21 +14,25 @@
     const root = document.getElementById("root");
 
     const xhr = new XMLHttpRequest();
-    const URL = 'https://pokeapi.co/api/v2/pokemon/6';
-
+    const URL = 'https://pokeapi.co/api/v2/pokemon';
+    console.dir(URL);
     xhr.open("GET", URL);
     xhr.send();
     xhr.addEventListener('load', function () {
-      console.log(xhr.response);
       const PokeData = JSON.parse(xhr.response);
-      console.dir(PokeData)
-      //요소만들기
-      const img = document.createElement('img');
-      const name = document.createElement('h3');
-      img.setAttribute('src', PokeData.sprites.front_default);
-      name.innerHTML = PokeData.name;
-      root.appendChild(img);
-      root.appendChild(name);
+      const makeul = document.createElement('ul');
+      root.appendChild(makeul);
+      const addNum = 1008;
+      for (let i = 0; i < addNum; i++) {
+        const makeli = document.createElement('li');
+        root.children[0].appendChild(makeli);
+        root.children[0].children[i].innerHTML = `<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i+1}.png" alt="">`
+      }
+      root.children[0].style.listStyleType = "none";
+
+      const ulselect = document.querySelector('ul');
+      ulselect.style.display = "flex";
+      ulselect.style.flexWrap = "Wrap";
     });
   </script>
 </body>
