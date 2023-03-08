@@ -11,28 +11,35 @@
 <body>
   <div id="root"></div>
   <script>
+    //변수 선언
     const root = document.getElementById("root");
-
     const xhr = new XMLHttpRequest();
-    const URL = 'https://pokeapi.co/api/v2/pokemon';
-    console.dir(URL);
+    const URL = 'https://pokeapi.co/api/v2/pokemon/';
+    const makeul = document.createElement('ul');
+    root.appendChild(makeul);
+    const ul = document.querySelector('ul')
+    // ul style 선언
+    ul.style.listStyleType = "none";
+    ul.style.display = "flex";
+    ul.style.flexWrap = "Wrap";
+    // xhr 열기
     xhr.open("GET", URL);
     xhr.send();
+    // load 했을 경우 eventlistener
     xhr.addEventListener('load', function () {
       const PokeData = JSON.parse(xhr.response);
-      const makeul = document.createElement('ul');
-      root.appendChild(makeul);
-      const addNum = 1008;
+      console.dir(PokeData);
+      const addNum = 20;
       for (let i = 0; i < addNum; i++) {
+        // li에 img 넣기
         const makeli = document.createElement('li');
-        root.children[0].appendChild(makeli);
-        root.children[0].children[i].innerHTML = `<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i+1}.png" alt="">`
+        ul.appendChild(makeli);
+        root.children[0].children[i].innerHTML = `<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i + 1}.png" alt="">`
+        // div에 PokeData 속 name 넣기
+        const makename = document.createElement('div');
+        ul.children[i].appendChild(makename)
+        ul.children[i].children[1].innerHTML = PokeData.results[i].name;
       }
-      root.children[0].style.listStyleType = "none";
-
-      const ulselect = document.querySelector('ul');
-      ulselect.style.display = "flex";
-      ulselect.style.flexWrap = "Wrap";
     });
   </script>
 </body>
